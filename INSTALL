@@ -49,7 +49,7 @@ add this just before the function closes:
     #endif
 
 5.
-Now you should merge the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
+Now you should MERGE the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
 
 Strangely enough the latest update from steinberg doesn't include pluginterfaces!
 But if you find an older release should be ok...
