@@ -1,3 +1,7 @@
+MAKE A LINUX BUILD THAT WORKS 28-11-2018
+thanks to K.Matheussen for patches and help.
+
+
 1.
 After you clone and go to surge directory apply kjetil's patch 
 included in this fork with this command:
