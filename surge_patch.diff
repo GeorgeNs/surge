@@ -1,0 +1,133 @@
+diff --git a/premake5.lua b/premake5.lua
+index 40f9e2c..e653c8f 100644
+--- a/premake5.lua
++++ b/premake5.lua
+@@ -72,7 +72,8 @@ elseif (os.istarget("linux")) then
+ 		"_aligned_free(x)=free(x)",
+ 		"stricmp=strcasecmp",
+ 		"SSE_VERSION=3",
+-                "__cdecl="
++                "__cdecl=",
++                "__gnu_linux__=1",
+         }
+     
+     links 
+diff --git a/src/common/CpuArchitecture.cpp b/src/common/CpuArchitecture.cpp
+index f2fa06e..04f40e0 100644
+--- a/src/common/CpuArchitecture.cpp
++++ b/src/common/CpuArchitecture.cpp
+@@ -1,4 +1,4 @@
+-#if !MAC
++#if !MAC && !__linux__
+ #include "CpuArchitecture.h"
+ #include <string.h>
+ 
+@@ -41,4 +41,4 @@ unsigned int determine_support()
+ 
+    return arch;
+ }
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/src/common/SurgeStorage.cpp b/src/common/SurgeStorage.cpp
+index c8700f3..05aa9cb 100644
+--- a/src/common/SurgeStorage.cpp
++++ b/src/common/SurgeStorage.cpp
+@@ -342,7 +342,7 @@ void SurgeStorage::load_wt(string filename, Wavetable* wt)
+       extension[i] = tolower(extension[i]);
+    if (extension.compare(".wt") == 0)
+       load_wt_wt(filename, wt);
+-#if !MAC
++#if !MAC && !__linux__
+    else if (extension.compare(".wav") == 0)
+       load_wt_wav(filename, wt);
+ #endif
+diff --git a/src/common/SurgeStorageLoadWavetable.cpp b/src/common/SurgeStorageLoadWavetable.cpp
+index 860c11a..05a7ae8 100644
+--- a/src/common/SurgeStorageLoadWavetable.cpp
++++ b/src/common/SurgeStorageLoadWavetable.cpp
+@@ -294,4 +294,4 @@ abort:
+ 
+    return;
+ }
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/src/common/gui/CAboutBox.cpp b/src/common/gui/CAboutBox.cpp
+index 18693e8..18cfff5 100644
+--- a/src/common/gui/CAboutBox.cpp
++++ b/src/common/gui/CAboutBox.cpp
+@@ -123,4 +123,4 @@ void CAboutBox::unSplash()
+          // ctnvg		getFrame ()->redraw ();
+       }
+    }
+-}
+\ No newline at end of file
++}
+diff --git a/src/common/gui/COscillatorDisplay.cpp b/src/common/gui/COscillatorDisplay.cpp
+index 3ef6b47..ecc8522 100644
+--- a/src/common/gui/COscillatorDisplay.cpp
++++ b/src/common/gui/COscillatorDisplay.cpp
+@@ -323,4 +323,4 @@ CMouseEventResult COscillatorDisplay::onMouseMoved(CPoint& where, const CButtonS
+       invalid();*/
+    }
+    return kMouseEventHandled;
+-}
+\ No newline at end of file
++}
+diff --git a/src/common/gui/CSnapshotMenu.cpp b/src/common/gui/CSnapshotMenu.cpp
+index b707200..0faea89 100644
+--- a/src/common/gui/CSnapshotMenu.cpp
++++ b/src/common/gui/CSnapshotMenu.cpp
+@@ -346,4 +346,4 @@ void CFxMenu::saveSnapshot(TiXmlElement* e, const char* name)
+       }
+       t = t->NextSibling("type")->ToElement();
+    }
+-}
+\ No newline at end of file
++}
+diff --git a/src/common/gui/PopupEditorDialog.cpp b/src/common/gui/PopupEditorDialog.cpp
+index cee6589..d7ce3f6 100644
+--- a/src/common/gui/PopupEditorDialog.cpp
++++ b/src/common/gui/PopupEditorDialog.cpp
+@@ -97,6 +97,16 @@ void spawn_miniedit_text(char* c, int maxchars)
+    // TODO
+ }
+ 
++#elif __linux__
++
++#include <stdio.h>
++
++void spawn_miniedit_text(char* c, int maxchars)
++{
++   // TODO
++  printf("Implement me\n");
++}
++
+ #elif WIN32
+ #include "stdafx.h"
+ /*#ifndef _WINDEF_
+@@ -139,4 +149,4 @@ void spawn_miniedit_text(char* c, int maxchars)
+       strncpy(c, me.textdata, maxchars);
+    }
+ }
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/src/common/gui/PopupEditorDialog.h b/src/common/gui/PopupEditorDialog.h
+index 6440363..87e5335 100644
+--- a/src/common/gui/PopupEditorDialog.h
++++ b/src/common/gui/PopupEditorDialog.h
+@@ -90,4 +90,4 @@ public:
+    }
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/vst3sdk b/vst3sdk
+--- a/vst3sdk
++++ b/vst3sdk
+@@ -1 +1 @@
+-Subproject commit 33a2a8e7929135e6586579b8921b2b20684c5b22
++Subproject commit 33a2a8e7929135e6586579b8921b2b20684c5b22-dirty
