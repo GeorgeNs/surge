@@ -52,7 +52,7 @@ after return impl->path;
 add this just before the function closes: 
     #endif
 
-OR MERGE the files included in vstguiFilestoReplace inside the vst3sdk/vstgui4/ directory
+OR MERGE the files included in my fork (vstguiFilestoReplace) with the vstgui inside the vst3sdk/vstgui4/ directory
 You can do it either manually or with command: cp -r  <dir1>/* <dir2>
 
 5.
