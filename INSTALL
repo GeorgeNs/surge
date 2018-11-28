@@ -1,69 +1,66 @@
 1.
-after you clone and enter the surge directory you apply the first patch:
-diff.diff.gz
-with this command:
-patch -Np1 -i ../diff.diff
+After you clone and go to surge directory apply kjetil's patch 
+included in this fork with this command:
+patch -Np1 -i surge_patch.diff
+
 2.
 git submodule update --init --recursive
-3.
+
+3.(a necessary RE-update for vstgui!)
 cd vst3sdk
 rm -fr vstgui4
 git clone https://github.com/steinbergmedia/vstgui.git
 mv vstgui vstgui4
+
 4.
-Find the corresponding files and make the changes(-,+) MANUALLY.
-Sorry I could n't make a patch that works...
+Find the corresponding files and make the changes MANUALLY:
 
---- a/vstgui/plugin-bindings/aeffguieditor.cpp
-+++ b/vstgui/plugin-bindings/aeffguieditor.cpp
-@@ -74,7 +74,7 @@ bool AEffGUIEditor::onKeyUp (VstKeyCode& keyCode)
-//-----------------------------------------------------------------------------
-void AEffGUIEditor::draw (ERect* ppErect) {
--#if VSTGUI_ENABLE_DEPRECATED_METHODS
-+#if 0 //VSTGUI_ENABLE_DEPRECATED_METHODS
+in
+surge/vst3sdk/vsdtgui4/vstgui/plugin-bindings/aeffguieditor.cpp
+change
+#if VSTGUI_ENABLE_DEPRECATED_METHODS
+to
+#if 0 //VSTGUI_ENABLE_DEPRECATED_METHODS
 
-diff --git a/vstgui/vstgui_linux.cpp b/vstgui/vstgui_linux.cpp
-index 8d7faa3..47622e9 100644
---- a/vstgui/vstgui_linux.cpp
-+++ b/vstgui/vstgui_linux.cpp
+in
+surge/vst3sdk/vsdtgui4/vstgui/vstgui_linux.cpp
 
-@@ -13,3 +15,41 @@
-#include "lib/platform/linux/cairopath.cpp"
+remove:
+#include "lib/platform/common/fileresourceinputstream.cpp"
 
--#include "lib/platform/common/fileresourceinputstream.cpp"
-+#include "lib/platform/common/genericoptionmenu.cpp"
-+#include "lib/platform/common/generictextedit.cpp"
-+#include "lib/platform/linux/x11utils.cpp"
+and add in the end:
+#include "lib/platform/common/genericoptionmenu.cpp"
+#include "lib/platform/common/generictextedit.cpp"
+#include "lib/platform/linux/x11utils.cpp"
 
-diff --git a/vstgui/lib/platform/linux/x11platform.cpp b/vstgui/lib/platform/linux/x11platform.cpp
-index 6fe94e6..ed0e8a1 100644
---- a/vstgui/lib/platform/linux/x11platform.cpp
-+++ b/vstgui/lib/platform/linux/x11platform.cpp
-@@ -142,6 +252,8 @@ uint64_t Platform::getCurrentTimeMs ()
-//------------------------------------------------------------------------
+in
+surge/vst3sdk/vsdtgui4/vstgui/lib/platform/linux/x11platform.cpp
+
+after 
 std::string Platform::getPath () {
-+return impl->path;
-+#if 0
-if (impl->path.empty () && soHandle) {
-struct link_map* map;
-@@ -165,6 +277,7 @@ std::string Platform::getPath ()
-}
-}
-return impl->path;
-+#endif
-}
 
+add:
+    return impl->path;
+    #if 0
+
+after return impl->path;
+
+add this just before the function closes: 
+    #endif
+
+5.
 Now you should merge the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
 
 Strangely enough the latest update from steinberg doesn't include pluginterfaces!
 But if you find an older release should be ok...
 here: https://github.com/R-Tur/VST_SDK_2.4
 
+6.
 Now you should be able to build with:
 
 premake5 gmake
 and
-make surge-vst2 (for debug mode)
+make surge-vst2 (for debug mode..add also -j# for faster..)
 or
 make config=release_x64 surge-vst2
 (for release mode.
