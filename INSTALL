@@ -3,7 +3,7 @@ thanks to K.Matheussen for patches and help.
 
 
 1.
-After you clone and go to surge directory apply kjetil's patch 
+After clone and go to surge directory apply kjetil's patch 
 included in this fork with this command:
 patch -Np1 -i surge_patch.diff
 
@@ -56,14 +56,14 @@ OR MERGE the files included in my fork (vstguiFilestoReplace) with the vstgui in
 You can do it either manually or with command: cp -r  <dir1>/* <dir2>
 
 5.
-Now you should MERGE the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
+Now should MERGE the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
 
 Strangely enough the latest update from steinberg doesn't include pluginterfaces!
 But if you find an older release should be ok...
 here: https://github.com/R-Tur/VST_SDK_2.4
 
 6.
-Now you should be able to build with:
+Now should be able to build with:
 
 premake5 gmake
 and
