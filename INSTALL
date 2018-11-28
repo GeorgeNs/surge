@@ -48,6 +48,9 @@ after return impl->path;
 add this just before the function closes: 
     #endif
 
+OR MERGE the files included in vstguiFilestoReplace inside the vst3sdk/vstgui4/ directory
+You can do it either manually or with command: cp -r  <dir1>/* <dir2>
+
 5.
 Now you should MERGE the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
 
@@ -62,6 +65,5 @@ premake5 gmake
 and
 make surge-vst2 (for debug mode..add also -j# for faster..)
 or
-make config=release_x64 surge-vst2
-(for release mode.
-***Release works for me only if use clang: premake5 --cc=clang gmake)
+make config=release_x64 surge-vst2 (for release mode)
+***Release works for me only if i use clang: premake5 --cc=clang gmake)
