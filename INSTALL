@@ -1,0 +1,73 @@
+MAKE A LINUX BUILD THAT WORKS 28-11-2018
+thanks to K.Matheussen for patches and help.
+
+
+1.
+After clone and go to surge directory apply kjetil's patch 
+included in this fork with this command:
+patch -Np1 -i surge_patch.diff
+
+2.
+git submodule update --init --recursive
+
+3.(a necessary RE-update for vstgui!)
+cd vst3sdk
+rm -fr vstgui4
+git clone https://github.com/steinbergmedia/vstgui.git
+mv vstgui vstgui4
+
+4.
+Find the corresponding files and make the changes MANUALLY:
+
+in
+surge/vst3sdk/vsdtgui4/vstgui/plugin-bindings/aeffguieditor.cpp
+change
+#if VSTGUI_ENABLE_DEPRECATED_METHODS
+to
+#if 0 //VSTGUI_ENABLE_DEPRECATED_METHODS
+
+in
+surge/vst3sdk/vsdtgui4/vstgui/vstgui_linux.cpp
+
+remove:
+#include "lib/platform/common/fileresourceinputstream.cpp"
+
+and add in the end:
+#include "lib/platform/common/genericoptionmenu.cpp"
+#include "lib/platform/common/generictextedit.cpp"
+#include "lib/platform/linux/x11utils.cpp" 
+
+in
+surge/vst3sdk/vsdtgui4/vstgui/lib/platform/linux/x11platform.cpp
+
+after 
+std::string Platform::getPath () {
+
+add:
+    return impl->path;
+    #if 0
+
+after return impl->path;
+
+add this just before the function closes: 
+    #endif
+
+OR MERGE the files included in my fork (vstguiFilestoReplace) with the vstgui inside the vst3sdk/vstgui4/ directory
+You can do it either manually or with command: cp -r  <dir1>/* <dir2>
+
+5.
+Now should MERGE the vst2_sdk files (pluginterfaces and public.sdk) into your vst3sdk
+
+Strangely enough the latest update from steinberg doesn't include pluginterfaces!
+But if you find an older release should be ok...
+here: https://github.com/R-Tur/VST_SDK_2.4
+
+6.
+Now should be able to build with:
+
+premake5 gmake
+and
+make surge-vst2 (for debug mode..add also -j# for faster..)
+or
+make config=release_x64 surge-vst2 (for release mode)
+***Release works for me only if i use clang: premake5 --cc=clang gmake)
