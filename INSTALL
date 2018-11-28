@@ -35,7 +35,7 @@ remove:
 and add in the end:
 #include "lib/platform/common/genericoptionmenu.cpp"
 #include "lib/platform/common/generictextedit.cpp"
-#include "lib/platform/linux/x11utils.cpp"
+#include "lib/platform/linux/x11utils.cpp" 
 
 in
 surge/vst3sdk/vsdtgui4/vstgui/lib/platform/linux/x11platform.cpp
