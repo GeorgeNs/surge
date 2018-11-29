@@ -11,10 +11,9 @@ patch -Np1 -i surge_patch.diff
 git submodule update --init --recursive
 
 3.(a necessary RE-update for vstgui!)
-cd vst3sdk
-rm -fr vstgui4
-git clone https://github.com/steinbergmedia/vstgui.git
-mv vstgui vstgui4
+grab the vstgui folder from:
+https://github.com/steinbergmedia/vstgui/releases/tag/vstgui4_7
+and totally REPLACE IT with your vstgui inside your vst3sdk
 
 4.
 Find the corresponding files and make the changes MANUALLY:
