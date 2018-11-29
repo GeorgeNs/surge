@@ -21,7 +21,7 @@ It currently only builds on windows, but getting it to build on macOS again & Li
 ## Installation
 See INSTALL file for the steps to make it work on linux.
 After following the steps you should be able to use all its functionalities in any DAW without its default GUI.
-That is , you will need to disable automatic gui opening from preferences in some DAWs(i.e. Ardour).
+That is very important: you will need to disable automatic VST's GUI launching from preferences in some DAWs(i.e. Ardour).
 
 
 ## Preparation
