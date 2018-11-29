@@ -20,7 +20,7 @@ It currently only builds on windows, but getting it to build on macOS again & Li
 
 ## Installation
 See INSTALL file for the steps to make it work on linux.
-After following the steps you should be able to use all its functionalities in any DAW without its default GUI.
+After following the steps you should be able to use all its functionalities in any DAW without surge's default GUI.
 That is very important: you will need to disable automatic VST's GUI launching from preferences in some DAWs(i.e. Ardour).
 
 
