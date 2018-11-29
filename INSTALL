@@ -98,4 +98,4 @@ and
 make surge-vst2 (for debug mode..add also -j# for faster..)
 or
 make config=release_x64 surge-vst2 (for release mode)
-***Release works for me only if i use clang: premake5 --cc=clang gmake)
+***Release works for me only if i use clang(recent version): premake5 --cc=clang gmake)
