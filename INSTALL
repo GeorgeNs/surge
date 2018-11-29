@@ -13,7 +13,7 @@ git submodule update --init --recursive
 3.(a necessary RE-update for vstgui!)
 grab the vstgui folder from:
 https://github.com/steinbergmedia/vstgui/releases/tag/vstgui4_7
-and totally REPLACE IT with your vstgui inside your vst3sdk
+and totally REPLACE IT with your vstgui inside your vst3sdk/vstgui4 directory...
 
 4.
 Find the corresponding files and make the changes MANUALLY:
