@@ -18,6 +18,9 @@ It currently only builds on windows, but getting it to build on macOS again & Li
 
 [Releases are available here](https://github.com/kurasu/surge/releases)
 
+## Installation
+See INSTALL file for the steps to make it work on linux.
+
 ## Preparation
 
 First you need to grab all submodules (needed to get the VST3SDK)
