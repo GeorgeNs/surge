@@ -23,6 +23,7 @@ See INSTALL file for the steps to make it work on linux.
 After following the steps you should be able to use all its functionalities in any DAW,but without using plugin's GUI.
 That is very important: you will need to disable the preference that opens plugin GUI automatically. Most of DAWs have this setting.
 
+ONLY VST2 plugin can be built succesfully using this fork. Lack of vst3 it's not a big deal since vst3 support on linux is not quite mature yet and if you mainly use open source DAWs you will know that already...   
 
 ## Preparation
 
