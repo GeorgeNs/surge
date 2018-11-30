@@ -21,7 +21,7 @@ It currently only builds on windows, but getting it to build on macOS again & Li
 ## Installation
 See INSTALL file for the steps to make it work on linux.
 After following the steps you should be able to use all its functionalities in any DAW,but without using plugin's GUI.
-That is very important: you will need to disable the preference that opens plugin GUI automatically. Any DAW has this setting.
+That is very important: you will need to disable the preference that opens plugin GUI automatically. Most of DAWs have this setting.
 
 
 ## Preparation
